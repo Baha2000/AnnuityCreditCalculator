@@ -37,6 +37,11 @@ namespace AnnuityCreditCalculator.Controllers
         [HttpPost]
         public IActionResult DayCalculate(InputDayCreditData data)
         {
+            if(data.Step > data.Time)
+            {
+                ModelState.AddModelError("Step", "Шаг выплат не может быть больше периода займа");
+            }
+
             if (ModelState.IsValid)
             {
                 CreditCalculator calc = new CreditCalculator(data);
